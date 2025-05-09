@@ -1,41 +1,52 @@
 import 'package:flutter/material.dart';
+// Import the Edgar.dart file
+import 'package:examennava1063y1069/Edgar.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // Application name
-      title: 'Flutter Hello World',
-      // Application theme data, you can set the colors for the application as
-      // you want
+      title: 'Pantallas de la App', // More general title
       theme: ThemeData(
-        // useMaterial3: false,
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      // A widget which will be started on application startup
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // Set EdgarPage as the home.
+      home: const MyApp(), // Use the correct class name from Edgar.dart
+      routes: {
+        //  Define the route.  Important:  The route for EdgarPage is '/Edgar'
+        '/Edgar': (context) => const MyApp(),
+      },
     );
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final String title;
-  const MyHomePage({super.key, required this.title});  
+//  The main page.  This is now separate from the first page.
+class PaginaPrincipal extends StatelessWidget {
+  const PaginaPrincipal({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // The title text which will be shown on the action bar
-        title: Text(title),
+        title: const Text('Página Principal'),
+        centerTitle: true,
       ),
       body: Center(
-        child: Text(
-          'Hello, World!',
+        child: Padding(
+          padding: const EdgeInsets.all(16.0), // Add some padding for better UI
+          child: ElevatedButton(
+            // Navigate to the '/Edgar' route when the button is pressed.
+            onPressed: () {
+              Navigator.pushNamed(context, '/Edgar');
+            },
+            child: const Text('Ir a Edgar Page'), // Clearer button text
+          ),
         ),
       ),
     );
