@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-// Import the Edgar.dart file
-import 'package:examennava1063y1069/Edgar.dart';
+
+// ✅ Corrección: imports locales
+import 'edgar.dart';
+import 'personaltask.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,41 +14,39 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Pantallas de la App', // More general title
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      // Set EdgarPage as the home.
-      home: const MyApp(), // Use the correct class name from Edgar.dart
+      title: 'Pantallas Timeline y Categorías',
+      theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
+      home: const PaginaPrincipal(),
       routes: {
-        //  Define the route.  Important:  The route for EdgarPage is '/Edgar'
-        '/Edgar': (context) => const MyApp(),
+        '/timeline': (context) => const PersonalTasksScreen(),
+        '/categories': (context) => const CategoriesScreen(),
       },
     );
   }
 }
 
-//  The main page.  This is now separate from the first page.
 class PaginaPrincipal extends StatelessWidget {
   const PaginaPrincipal({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Página Principal'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Página Principal')),
       body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0), // Add some padding for better UI
-          child: ElevatedButton(
-            // Navigate to the '/Edgar' route when the button is pressed.
-            onPressed: () {
-              Navigator.pushNamed(context, '/Edgar');
-            },
-            child: const Text('Ir a Edgar Page'), // Clearer button text
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/timeline'),
+              child: const Text('Ir a Timeline'),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () => Navigator.pushNamed(context, '/categories'),
+              child: const Text('Ir a Categorías'),
+            ),
+          ],
         ),
       ),
     );
